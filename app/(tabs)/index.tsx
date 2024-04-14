@@ -1,31 +1,66 @@
-import { StyleSheet } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Pressable, View, Image, Text } from 'react-native';
+import { BACKEND_URL } from '../config';
 
-import EditScreenInfo from '@/components/EditScreenInfo';
-import { Text, View } from '@/components/Themed';
+type Cart = Array<{
+  id: string;
+  title: string;
+  img: string;
+}>;
 
 export default function TabOneScreen() {
+  const [cart, setCart] = useState<Cart>() as [Cart, (cart: Cart) => void];
+
+  const fetchCart = async () => {
+    const response = await fetch(`${BACKEND_URL}/products`);
+    const parsed: Cart = await response.json();
+    setCart(parsed);
+  }
+
+  const checkout = async () => {
+    const response = await fetch(`${BACKEND_URL}/checkout`);
+    if (response.status !== 200) {
+      throw new Error(response.statusText || 'Unknown error');
+    }
+  }
+
+  const onCheckoutPress = () => {
+    console.log('on press')
+    checkout();
+  }
+
+  useEffect(() => {
+    fetchCart();
+  }, []);
+
+  const Cart = cart && cart.slice(0, 2).map((item) => (
+    <View key={item.id} className='mb-6'>
+      <Text className='text-2xl'>{item.title}</Text>
+      <Image width={200} height={200}
+        source={{
+          uri: item.img,
+        }}
+      />
+    </View>
+  )) || [
+    <View key={'loading-place-holder'}>
+      <Text>Loading cart items...</Text>
+    </View>
+  ];
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
+    <View className="flex-1 justify-between bg-white">
+      <View>
+        <Text className='text-4xl m-2'>Example cart</Text>
+        <View className='m-2'>
+          {Cart}
+        </View>
+      </View>
+      <View className='flex items-center content-center'>
+        <Pressable onPress={onCheckoutPress}>
+          <Text className='text-1xl mb-5'>Checkout</Text>
+        </Pressable>
+      </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});
