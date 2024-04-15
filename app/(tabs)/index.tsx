@@ -41,6 +41,8 @@ export default function TabOneScreen() {
       <Text className='text-2xl'>{item.title}</Text>
       <View className='flex flex-row justify-between'>
         <Image
+          width={200}
+          height={200}
           className='w-48 h-48'
           source={{
             uri: item.img,
