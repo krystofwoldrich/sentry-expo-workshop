@@ -28,11 +28,6 @@ export const unstable_settings = {
   // of transactions for performance monitoring.
   // We recommend adjusting this value in production
   tracesSampleRate: 1.0,
-
-  integrations: (integrations) => {
-    integrations.filter((i) => i.name !== 'DebugSymbolicator')
-    return integrations;
-  },
 });
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
