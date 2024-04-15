@@ -9,6 +9,7 @@ import { useColorScheme } from '@/components/useColorScheme';
 import { DSN } from './config';
 import "../global.css"
 import { isNode } from './utils';
+import { updateId } from 'expo-updates';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -69,5 +70,7 @@ function RootLayoutNav() {
     </ThemeProvider>
   );
 }
+
+Sentry.setTag('update', updateId ?? 'none');
 
 export default Sentry.wrap(RootLayout);
