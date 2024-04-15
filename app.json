@@ -16,13 +16,15 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "io.sentry.expo.workshop"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "io.sentry.expo.workshop"
     },
     "web": {
       "bundler": "metro",
@@ -30,6 +32,15 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
+      [
+        "@sentry/react-native/expo",
+        {
+          "url": "https://sentry.io/",
+          "note": "Use SENTRY_AUTH_TOKEN env to authenticate with Sentry.",
+          "project": "sentry-react-native",
+          "organization": "sentry-sdks"
+        }
+      ],
       "expo-router"
     ],
     "experiments": {
@@ -43,6 +54,10 @@
         "projectId": "acf36778-e0ff-436a-be05-b98b6344258b"
       }
     },
-    "owner": "krystofwoldrich"
+    "owner": "krystofwoldrich",
+    "runtimeVersion": "1.0.0",
+    "updates": {
+      "url": "https://u.expo.dev/acf36778-e0ff-436a-be05-b98b6344258b"
+    }
   }
 }
