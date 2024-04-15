@@ -5,8 +5,10 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import * as Sentry from '@sentry/react-native';
-
 import { useColorScheme } from '@/components/useColorScheme';
+import { DSN } from './config';
+import "../global.css"
+import { isNode } from './utils';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -18,11 +20,9 @@ export const unstable_settings = {
   initialRouteName: '(tabs)',
 };
 
-// Import your global CSS file
-import "../global.css"
-
-Sentry.init({
-  dsn: "https://examplePublicKey@o0.ingest.sentry.io/0",
+!isNode() && Sentry.init({
+  dsn: DSN,
+  debug: true,
 
   // Set tracesSampleRate to 1.0 to capture 100%
   // of transactions for performance monitoring.
