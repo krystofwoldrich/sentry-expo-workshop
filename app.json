@@ -34,6 +34,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "acf36778-e0ff-436a-be05-b98b6344258b"
+      }
+    },
+    "owner": "krystofwoldrich"
   }
 }
